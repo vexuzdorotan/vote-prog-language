@@ -8,14 +8,37 @@ class AddBar extends React.Component {
   };
 
   onButtonClick = () => {
+    let backgroundColor = `#${Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .toUpperCase()}`;
+    const r = parseInt(backgroundColor.slice(1, 3), 16),
+      g = parseInt(backgroundColor.slice(3, 5), 16),
+      b = parseInt(backgroundColor.slice(5, 7), 16);
+    const tempBackgroundColor = backgroundColor;
+    backgroundColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
+
+    const foregroundColor = `#${(
+      Number(`0x1${tempBackgroundColor.slice(1)}`) ^ 0xffffff
+    )
+      .toString(16)
+      .substr(1)
+      .toUpperCase()}`;
+
     this.props.languageList.push({
       language: this.state.input,
       voteCount: 0,
+      backgroundColor,
+      foregroundColor,
     });
 
     this.props.onNewList(this.props.languageList);
-
     this.setState({ input: '' });
+
+    window.scrollTo({
+      left: 0,
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
   };
 
   render() {

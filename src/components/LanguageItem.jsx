@@ -5,19 +5,31 @@ class LanguageItem extends Component {
 
   onButtonUpClick(lang) {
     lang.voteCount += 1;
+    this.props.onVote();
     this.setState({ lang });
   }
 
   onButtonDownClick(lang) {
     lang.voteCount -= 1;
+    this.props.onVote();
     this.setState({ lang });
   }
 
   render() {
     return (
       <div>
-        <li className="list-group-item d-flex align-items-center">
-          <div className="p-2 bd-highlight">{this.props.language.language}</div>
+        <li
+          className="list-group-item d-flex align-items-center rounded"
+          style={{ backgroundColor: this.props.language.backgroundColor }}
+        >
+          <div
+            className="p-2 bd-highlight h4"
+            style={{
+              color: this.props.language.foregroundColor,
+            }}
+          >
+            {this.props.language.language}
+          </div>
           <div className="ml-auto p-2 bd-highlight">
             <button
               className="btn btn-light btn-sm"
